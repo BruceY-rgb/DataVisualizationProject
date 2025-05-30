@@ -1,0 +1,269 @@
+#scatterplot {
+    padding: 25px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper-group {
+    position: relative;
+    z-index: 50;
+}
+
+circle {
+    stroke: gray;
+    fill: #d9d9d9;
+    opacity: .8;
+}
+
+circle.selected, circle.peek  {
+    stroke: black;
+    stroke-width: 2px;
+    opacity: 1;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.axis-label {
+    font-size: 11px;
+    fill: black;
+}
+
+.chart-tooltip {
+    position: absolute;
+    text-align: center;
+    min-width: 60px;
+    height: 18px;
+    padding: 2px;
+    background: white;
+    stroke: gray;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.chart-tooltip h2 {
+    margin: auto;
+    font: 14px sans-serif;
+    font-weight: bold;
+}
+
+/* Legend */
+.circle-legend {
+    width: 200px;
+    height: 120px;
+    padding-right: 75px;
+    margin: auto;
+    display: inline-block;
+    float: right;
+}
+
+.circle-legend svg {
+    width: 100%;
+    height: 90%;
+}
+
+.circle-legend text {
+    font-size: 11px;
+}
+
+.circle-legend .label {
+    font-size: 12px;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+.circle-legend .subLabel {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* Dropdown */
+div.dropdown-wrapper {
+    display: flex;
+    margin: 0 auto;
+    padding: 2px;
+    justify-content: space-evenly;
+}
+
+.dropdown-panel {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.dropdown-content {
+    text-align: left;
+}
+.y-label,
+.x-label,
+.c-label {
+    width: 1%7;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.blurred {
+    opacity: .2;
+  }
+
+.team-circle-color.ATL {
+    background-color: #e13a3e;
+    fill: #e13a3e;
+}
+
+.team-circle-color.BOS {
+    background-color: #008348;
+    fill:#008348;
+}
+
+.team-circle-color.BKN {
+    background-color: #000;
+    fill: #000;
+}
+
+.team-circle-color.CHA {
+    background-color: #00788c;
+    fill:#00788c
+}
+
+.team-circle-color.CHI {
+    background-color: #ce1141;
+    fill: #ce1141;
+}
+
+.team-circle-color.CLE {
+    background-color: #6f263d;
+    fill:#6f263d;
+}
+
+.team-circle-color.DAL {
+    background-color: #0053bc;
+    fill: #0053bc;
+}
+
+.team-circle-color.DEN {
+    background-color: #0e2240;
+    fill: #0e2240;
+}
+
+.team-circle-color.DET {
+    background-color: #1d428a;
+    fill: #1d428a;
+}
+
+.team-circle-color.GSW {
+    background-color: #006bb6;
+    fill: #006bb6;
+}
+
+.team-circle-color.HOU {
+    background-color: #a7072f;
+    fill:#a7072f;
+}
+
+.team-circle-color.IND {
+    background-color: #002d62;
+    fill: #002d62;
+}
+
+.team-circle-color.LAC {
+    background-color: #c8102e;
+    fill: #c8102e;
+}
+
+.team-circle-color.LAL {
+    background-color: #552583;
+    fill: #552583;
+}
+
+.team-circle-color.MEM {
+    background-color: #5d76a9;
+    fill: #5d76a9;
+}
+
+.team-circle-color.MIA {
+    background-color: #98002e;
+    fill:#98002e;
+}
+
+.team-circle-color.MIL {
+    background-color: #00471b;
+    fill: #00471b;
+}
+
+.team-circle-color.MIN {
+    background-color: #0c2340;
+    fill: #0c2340;
+}
+
+.team-circle-color.NJN {
+    background-color: #c60033;
+    fill:#c60033;
+}
+
+.team-circle-color.NOH {
+    background-color: #002b5c;
+    fill: #002b5c;
+}
+
+.team-circle-color.NOP {
+    background-color: #002b5c;
+    fill: #002b5c;
+}
+
+.team-circle-color.NYK {
+    background-color: #006bb6;
+    fill: #006bb6;
+}
+
+.team-circle-color.OKC {
+    background-color: #007dc3;
+    fill: #007dc3;
+}
+
+.team-circle-color.ORL {
+    background-color: #0077c0;
+    fill: #0077c0;
+}
+
+.team-circle-color.PHI {
+    background-color: #006bb6;
+    fill: #006bb6;
+}
+
+.team-circle-color.PHX {
+    background-color: #1d1160;
+    fill: #1d1160;
+}
+
+.team-circle-color.POR {
+    background-color: #e03a3e;
+    fill: #e03a3e;
+}
+
+.team-circle-color.SAC {
+    background-color: #5a2d81;
+    fill: #5a2d81;
+}
+
+.team-circle-color.SAS {
+    background-color: rgb(34, 2, 2);
+    fill: rgb(34, 2, 2);
+}
+
+.team-circle-color.TOR {
+    background-color: rgb(153, 34, 34);
+    fill: rgb(153, 34, 34);
+}
+
+.team-circle-color.UTA {
+    background-color: #002b5c;
+    fill: #002b5c;
+}
+
+.team-circle-color.WAS {
+    background-color: #002b5c;
+    fill: #002b5c;
+}

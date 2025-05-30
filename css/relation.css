@@ -1,0 +1,84 @@
+.map_pos {
+  /* background-color: white; */
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.land {
+  fill: #dddddd;
+}
+
+.border {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.interior {
+  stroke: white;
+}
+
+.exterior {
+  stroke: #bbbbbb;
+}
+
+.team {
+  fill: white;
+  opacity: 0.6;
+  stroke: #252525;
+}
+
+.game {
+  fill: none;
+  stroke: #252525;
+  stroke-width: 1px;
+  stroke-opacity: 0.1;
+}
+
+.voronoi {
+  fill: none;
+  stroke: none;
+  stroke-width: 1px;
+}
+
+.highlights {
+  fill: none;
+  opacity: 1 !important;
+  stroke: red !important;
+  stroke-width: 3px !important;
+  stroke-opacity: 0.8 !important;
+}
+
+.highlights-win {
+  opacity: 1 !important;
+  stroke: red !important;
+  stroke-width: 2px !important;
+  stroke-opacity: 0.8 !important;
+}
+
+.highlights-lose {
+  fill: none;
+  opacity: 1 !important;
+  stroke: rgb(17, 3, 3) !important;
+  stroke-width: 3px !important;
+  stroke-opacity: 0.8 !important;
+}
+
+.highlights-eq {
+  fill: none;
+  opacity: 1 !important;
+  stroke: rgba(19, 79, 211, 0.493) !important;
+  stroke-width: 3px !important;
+  stroke-opacity: 0.8 !important;
+}
+
+g#voronoi {
+  pointer-events: all;
+}
+
+/* shadow trick from bl.ocks.org */
+#tooltip {
+  font-size: 10pt;
+  font-weight: 900;
+  fill: white;
+  text-shadow: 1px 1px 0 #252525, 1px -1px 0 #252525, -1px 1px 0 #252525, -1px -1px 0 #252525;
+}

@@ -1,0 +1,129 @@
+#infocard {
+    border-radius: 7px;
+    max-width: 700px;
+    height: 330px;
+    color: white;
+    margin: 0 auto;
+}
+
+.infocard-header {
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    height: 30px;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.1), 
+        rgba(0, 0, 0, 0.1)
+      );
+}
+
+#info-name {
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+.infocard-body {
+    display: grid;
+    padding: 15px;
+    padding-bottom: 0px;
+    height: 210px;
+    margin-bottom: 20px;
+}
+
+.sprite-container {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    background-color: white;
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+}
+
+.sprite {
+    height: 100px;
+    width: 100px;
+}
+
+#info-types {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 2;
+}
+
+.type-container {
+    width: 125px;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.2), 
+        rgba(0, 0, 0, 0.2)
+      );
+    padding: 7px 5px 2px 5px;
+    margin-top: 5px;
+}
+
+#info-height {
+    grid-column: 1 / span 2;
+    grid-row: 5 / span 1;
+}
+
+#info-weight {
+    grid-column: 1 / span 2;
+    grid-row: 6 / span 1;
+}
+
+.radarchart-container {
+    margin-left: 10px;
+    padding-top: 17px;
+    padding-bottom: 0;
+    grid-column: 3/ span 5;
+    grid-row: 1/ span 5;
+    background-color: white;
+    border-radius: 5px;
+    height: 190px;
+    width: 325px;
+}
+
+.disclaimer {
+    font-size: 8pt;
+    margin-left: 2px;
+    color: black;
+}
+
+
+#evolve-container:hover {
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.1), 
+        rgba(255, 255, 255, 0.1)
+      );;
+}
+
+#evolve-container {
+    padding: 5px;
+    height: 25px;
+    text-align: center;
+}
+
+#evolve-label {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}
+
+#evolve-toggle {
+    opacity: 0;
+}
+
+.infocard-footer {
+    margin-top: -5px;
+    display: none;
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+}
+
+.evo-bubble {
+    fill: white;
+    stroke:lightgray;
+    stroke-width: 2;
+}
+
+.link {
+    stroke: lightgray;
+}

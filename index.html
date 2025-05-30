@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NBADATA</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon.png">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/infocard.css" />
+    <link rel="stylesheet" href="css/scatterplot.css" />
+    <link rel="stylesheet" href="css/table.css" />
+    <link rel="stylesheet" href="css/relation.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://d3js.org/d3-force.v2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.0"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+    <script src="https://unpkg.com/d3-delaunay@4"></script>
+    <script src="https://unpkg.com/d3-geo-voronoi@1"></script>
+    <link rel="stylesheet" href="css/theme.min.css" />
+</head>
+
+<body>
+    <div id="header-wrap" class="item-title">
+        <header>
+            <img id="title-img" src="assets/background.png">
+        </header>
+    </div>
+    <div class="grid-container">
+        <div id="nav">
+            <label id="selector-label">Choose a team: </label>
+            <div class="selector-container">
+                <select name="Team" id="team-selector" class="form-control">
+                    <option value="ATL">Atlanta Hawks</option>
+                    <option value="BOS">Boston Celtics</option>
+                    <option value="BKN">Brooklyn Nets</option>
+                    <option value="CHA">Charlotte Hornets</option>
+                    <option value="CHI">Chicago Bulls</option>
+                    <option value="CLE">Cleveland Cavaliers</option>
+                    <option value="DAL">Dallas Mavericks</option>
+                    <option value="DEN">Denver Nuggets</option>
+                    <option value="DET">Detroit Pistons</option>
+                    <option value="GSW">Golden State Warriors</option>
+                    <option value="HOU">Houston Rockets</option>
+                    <option value="IND">Indiana Pacers</option>
+                    <option value="LAC">LA Clippers</option>
+                    <option value="LAL">Los Angeles Lakers</option>
+                    <option value="MEM">Memphis Grizzlies</option>
+                    <option value="MIA">Miami Heat</option>
+                    <option value="MIL">Milwaukee Bucks</option>
+                    <option value="MIN">Minnesota Timberwolves</option>
+                    <option value="NOP">New Orleans Pelicans</option>
+                    <option value="NYK">New York Knicks</option>
+                    <option value="OKC">Oklahoma City Thunder</option>
+                    <option value="ORL">Orlando Magic</option>
+                    <option value="PHI">Philadelphia 76ers</option>
+                    <option value="PHX">Phoenix Suns</option>
+                    <option value="POR">Portland Trail Blazers</option>
+                    <option value="SAC">Sacramento Kings</option>
+                    <option value="SAS">San Antonio Spurs</option>
+                    <option value="TOR">Toronto Raptors</option>
+                    <option value="UTA">Utah Jazz</option>
+                    <option value="WAS">Washington Wizards</option>
+                </select>
+            </div>
+            <div class="right-of-banner">
+            </div>
+        </div>
+        <div class="item-intro">
+            <h2>Welcome to NBA Data!</h2>
+            <p>
+                Hundreds of players of 30 teams bring us exciting games in each NBA season. 
+                This website helps you to browse through the performance of each player in the last 5 seasons. 
+                Feel free to compare players’ performance using 6 different stats in the scatterplot. 
+                You can also check the team win-loss relation in the map below. Have fun!
+                <br>
+        </div>
+        <div class="item-notes">
+            <h2>Notes:</h2>
+            PPG: Points per game &nbsp&nbsp&nbsp RPG: Rebounds per game<br>
+            AST: Assists per game &nbsp&nbsp STL: Steals per game<br>
+            BLK: Blocks per game &nbsp&nbsp&nbsp TO: Turnovers per game<br>          
+        </div>
+
+        <div id="table-wrapper" class="item-table">
+            <div id="clear"></div>
+            <div id="search-bar-content">
+                <i class="fa fa-search icon"></i>
+                <input type="text" id="search-bar" placeholder="Search for player using id or name">
+            </div>
+            <table id="table">
+                <thead>
+                    <tr id="headers">
+                        <th class="sortable" width="80">NAME<i class="fas no-display"></i></th>
+                        <th class="sortable" width="70">TEAM<i class="fas no-display"></i></th>
+                        <th class="sortable">PPG<i class="fas no-display"></i></th>
+                        <th class="sortable">RPG<i class="fas no-display"></i></th>
+                        <th class="sortable">AST<i class="fas no-display"></i></th>
+                        <th class="sortable">STL<i class="fas no-display"></i></th>
+                        <th class="sortable">BLK<i class="fas no-display"></i></th>
+                        <th class="sortable">TO<i class="fas no-display"></i></th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+
+        </div>
+        <div class="item-infocard">
+
+            <div id="infocard">
+                <div id="bg_color" class="stats-player-summary team-color OKC" ng-class="{'no-team': !hasTeamTheme}"
+                    ng-init="isOpen=false">
+
+                    <div class="stats-teamplayer-summary-container with-padding">
+                        <!---->
+                        <div class="stats-player-summary__bg" ng-if="hasTeamTheme">
+                            <img id="team_background_logo" team-logo="" usenewlogos="true" abbr=""
+                                class="team-logo away team-img" type="image/svg+xml"
+                                src="https://res.nba.cn/media/img/teams/logos/OKC_logo.svg">
+                        </div>
+                        <!---->
+
+                        <div class="stats-player-summary__container">
+                            <div class="summary-player">
+                                <!---->
+
+                                <div class="summary-player__teamlogo" ng-if="hasTeamTheme">
+                                    <img id="team_logo" team-logo="" usenewlogos="true" abbr="OKC"
+                                        class="team-logo away team-img" type="image/svg+xml"
+                                        src="https://res.nba.cn/media/img/teams/logos/OKC_logo.svg">
+                                </div>
+                                <!---->
+
+                                <div class="summary-player__logo">
+                                    <img id="player_logo" player-headshot="" class="player-img"
+                                        src="https://res.nba.cn/media/img/players/head/260x190/1628983.png"
+                                        onerror="this.src='assets/image-not-found.png'">
+                                </div>
+                                <div class="summary-player__text">
+                                    <div class="player-name">
+                                        <div class="stats-teamplayer-summary-text">
+                                            <!----><span ng-if="playerInfo.TEAM_ID != '0'">
+                                                <span id="team_name">Oklahoma City Thunder</span>
+                                            </span>
+                                            <!---->
+                                        </div>
+                                        <div class="stats-teamplayer-summary-text medium">
+                                            <span id="myname">2 Shaivonte Aician Gilgeous-Alexander</span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-player-stats">
+                        <div class="hor-divider"></div>
+                        <div class="stats-teamplayer-summary-container with-padding">
+                            <div class="summary-player-stats__container">
+
+                                <div class="stats">
+                                    <div class="ver-divider"></div>
+                                    <div class="stats__category border-right">
+                                        <div class="stats-teamplayer-summary-text">PPG</div>
+                                        <div id="PTS" class="stats-teamplayer-summary-text medium"> 32.7 </div>
+                                    </div>
+                                    <div class="ver-divider"></div>
+                                    <div class="stats__category border-right">
+                                        <div class="stats-teamplayer-summary-text">RPG</div>
+                                        <div id="REB" class="stats-teamplayer-summary-text medium"> 5.0 </div>
+                                    </div>
+                                    <div class="ver-divider"></div>
+                                    <div class="stats__category border-right">
+                                        <div class="stats-teamplayer-summary-text">AST</div>
+                                        <div id="AST" class="stats-teamplayer-summary-text medium"> 6.4 </div>
+                                    </div>
+                                    <div class="ver-divider"></div>
+                                    <!---->
+                                    <div ng-if="availableStats.current" class="stats__category">
+                                        <div class="stats-teamplayer-summary-text">BLK</div>
+                                        <div id="BLK" class="stats-teamplayer-summary-text medium"> 1.0 </div>
+                                    </div>
+                                    <div class="ver-divider"></div>
+                                    <!---->
+                                    <div ng-if="availableStats.current" class="stats__category">
+                                        <div class="stats-teamplayer-summary-text">STL</div>
+                                        <div id="STL" class="stats-teamplayer-summary-text medium"> 1.2 </div>
+                                    </div>
+                                    <div class="ver-divider"></div>
+                                    <!---->
+                                    <div ng-if="availableStats.current" class="stats__category">
+                                        <div class="stats-teamplayer-summary-text">+/-</div>
+                                        <div id="plus_minus" class="stats-teamplayer-summary-text medium"> 16.9 </div>
+                                    </div>
+                                    <!---->
+                                    <!---->
+                                    <div ng-if="availableStats.current" class="ver-divider"></div>
+                                    <!---->
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-scatterplot"></div>
+        <div class="item-types">
+            <hr style="width: 90%;margin-bottom: 20px;">
+            
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <h1>Team Relations</h1>
+        <p>The foundation and the biggest highlight of the NBA league is the direct competing relationship
+            between teams.<br/>
+            The relationship between different teams in a certain season is shown in the figure below.<br />
+            If a team win more games in the direct games against the other team in the whole season,
+            the relationship will be rendered as <b style="color: red;">Win against</b> ;<br />
+            otherwise, if the team loses more in the direct games against the other team,
+            the relationship will be rendered as <b style="color: black;">Lose against</b> ;<br />
+            else, the two teams have equal wins and loses,
+            the relationship between them will be rendered as <b style="color: rgba(19, 79, 211, 0.493);">Equal against</b> .<br>
+        </p>
+    </div>
+    <div class="map_pos">
+        <svg width="960" height="600">
+            <!-- must be in this order for drawing -->
+            <g id="basemap"></g>
+            <g id="types"></g>
+            <g id="games"></g>
+            <g id="teams"></g>
+            <g id="voronoi"></g>
+            <text id="tooltip" style="display: none;"></text>
+            <!-- <text id="tooltip" style="display: none;"></text> -->
+        </svg>
+    </div>
+    <div id="tool-tip"></div>
+
+    <script src="js/table.js"></script>
+    <script src="js/infocard.js"></script>
+    <script src="js/scatterplot.js"></script>
+    <script src="js/typeChart.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/team_relation.js"></script>
+    <script src="js/theme.min.js"></script>
+</body>
+
+</html>

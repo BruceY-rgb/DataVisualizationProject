@@ -1,0 +1,252 @@
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0 !important;
+    background-color: #f0f0f0 !important;
+}
+
+
+#header-wrap {
+    background-color: #081956;
+    /* padding: 5px; */
+}
+
+#title-img {
+    display: block;
+    margin-left: 0px;
+    margin-right: 0px;
+    background-size: cover;
+    width: 100%;
+}
+
+#nav {
+    background: #8d0000;
+    /* max-height: 60px; */
+    grid-column: 1/ span 3;
+    grid-row: 1;
+    padding: 10px;
+    padding-left: 50px;
+    padding-bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selector-container {
+    display: inline-block;
+    margin-right: 25px;
+    align-content: center;
+}
+
+#selector-label {
+    font-weight: bold;
+    font-size: 16pt;
+    margin-right: 20px;
+    color: white;
+}
+
+.legendary-legend {
+    color: white;
+    display: inline-block;
+    margin-right: 30px;
+    font-size: 14pt;
+}
+
+.my-link {
+    margin-right: 25px;
+    display: inline-block;
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.my-link a:link,
+.my-link a:visited  {
+    color: white;
+    text-decoration: none;
+}
+
+.my-link a:hover {
+    color: lightgray;
+}
+
+select {
+    width: auto;
+    display: inline-block;
+    border: .5px solid black;
+    border-radius: 3px;
+    padding: 5px;
+    padding-right: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+}
+
+/* [class^="item-"] {
+    border: 2px solid #eb6123;
+} */
+
+.item-intro {
+    grid-column: 1/3;
+    grid-row: 2/3;
+    padding-left: 50px;
+}
+.item-notes{
+    grid-column: 3/4;
+    grid-row: 2/3;
+    /* padding-left: 50px; */
+}
+
+.item-intro p {
+    width: 50vw;
+    text-align: left;
+}
+
+.item-title {
+    grid-column: 1/ 3;
+    grid-row: 3/4;
+}
+
+.item-table {
+    grid-column: 3/3;
+    grid-row: 4 / spans 12;
+}
+ 
+.item-infocard {
+    grid-column: 1/3;
+    grid-row: 4/7;
+}
+ 
+.item-scatterplot {
+    grid-column: 1/ span 2;
+    grid-row: 7/11;
+    text-align: center;
+}
+ 
+.item-stats {
+    grid-column: 2/2;
+    grid-row: 4/7;
+}
+
+.item-types {
+    grid-column: 1/4;
+    grid-row: 13/15;
+    text-align: center;
+}
+
+
+img[class$="-badge"] {
+    width: 60px;
+    height: 15px;
+}
+
+.grass-type {
+    background-color: #7cc251;
+    fill: #7cc251
+}
+
+.rock-type {
+    background-color: #b7a036;
+    fill: #b7a036;
+}
+
+.ice-type {
+    background-color: #98d7d6;
+    fill: #98d7d6;
+}
+
+.dragon-type {
+    background-color: #6457a5;
+    fill: #6457a5;
+}
+
+.dark-type {
+    background-color: #6c537a;
+    fill: #6c537a;
+}
+
+.psychic-type {
+    background-color: #f05888;
+    fill: #f05888;
+}
+
+.bug-type {
+    background-color: #a8b939;
+    fill: #a8b939;
+}
+
+.flying-type {
+    background-color: #9f8fc4;
+    fill: #9f8fc4;
+}
+
+.steel-type {
+    background-color: #b8b8cf;
+    fill: #b8b8cf;
+}
+
+.fire-type {
+    background-color: #ef802e;
+    fill: #ef802e;
+}
+
+.fighting-type {
+    background-color: #c03228;
+    fill: #c03228;
+}
+
+.ground-type {
+    background-color: #e0c067;
+    fill: #e0c067;
+}
+
+.ghost-type {
+    background-color: #705999;
+    fill: #705999;
+}
+
+.poison-type {
+    background-color: #d874d3;
+    fill: #d874d3;
+}
+
+.water-type {
+    background-color: #718bc6;
+    fill: #718bc6;
+}
+
+.fairy-type {
+    background-color: #ee99ac;
+    fill: #ee99ac;
+}
+
+.electric-type {
+    background-color: #f8d031;
+    fill: #f8d031;
+}
+
+.normal-type {
+    background-color: #a7a878;
+    fill: #a7a878;
+}
+
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 2px;
+    background: black;
+    border-radius: 2px;
+}
+
+.tooltip h2 {
+    margin: auto;
+    font: 16px sans-serif;
+    color: white;
+}
