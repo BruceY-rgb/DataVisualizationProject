@@ -9,20 +9,11 @@ const urls = {
   
     // source: https://gist.github.com/mbostock/7608400
     games:
-      "data/team_relation/games/games_regularseason_2020.csv",
+      "data/team_relation/games/games_regularseason_2024.csv",
 }
 
 const game_urls = {
-  playoffs_2020 : "data/team_relation/games/games_playoffs_2020.csv",
-  playoffs_2019 : "data/team_relation/games/games_playoffs_2019.csv",
-  playoffs_2018 : "data/team_relation/games/games_playoffs_2018.csv",
-  playoffs_2017 : "data/team_relation/games/games_playoffs_2017.csv",
-  playoffs_2016 : "data/team_relation/games/games_playoffs_2016.csv",
-  regularseason_2020 : "data/team_relation/games/games_regularseason_2020.csv",
-  regularseason_2019 : "data/team_relation/games/games_regularseason_2019.csv",
-  regularseason_2018 : "data/team_relation/games/games_regularseason_2018.csv",
-  regularseason_2017 : "data/team_relation/games/games_regularseason_2017.csv",
-  regularseason_2016 : "data/team_relation/games/games_regularseason_2016.csv",
+  regularseason_2024 : "data/team_relation/games/games_regularseason_2024.csv",
 }
 
 const svg  = d3.select("svg");
