@@ -107,7 +107,18 @@ div.dropdown-wrapper {
 .blurred {
     opacity: .2;
   }
+circle {
+    transition: opacity 0.5s ease;
+}
 
+.axis path, 
+.axis line {
+    transition: d 1s ease;
+}
+
+.chart-tooltip {
+    transition: opacity 0.3s ease;
+}
 .team-circle-color.ATL {
     background-color: #e13a3e;
     fill: #e13a3e;
