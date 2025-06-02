@@ -31,7 +31,8 @@ const teamDataMap = {
     'SAS': './data/teams/SAS_2025.json',
     'TOR': './data/teams/TOR_2025.json',
     'UTA': './data/teams/UTA_2025.json',
-    'WAS': './data/teams/WAS_2025.json'
+    'WAS': './data/teams/WAS_2025.json',
+    'ALL': './data/teams/ALL_2025.json'
 };
 
 // 页面加载后初始化

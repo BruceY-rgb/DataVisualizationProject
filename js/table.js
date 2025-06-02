@@ -285,7 +285,7 @@ class Table {
         svg.append("text")
             .attr("x", 11)
             .attr("y", 19)
-            .text("Clear all")
+            .text("重置")
             .style("font-size", "14pt")
             .style("fill", "black")
             .style("opacity", "100%")

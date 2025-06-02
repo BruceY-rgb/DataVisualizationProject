@@ -34,9 +34,10 @@
     </div>
     <div class="grid-container">
         <div id="nav">
-            <label id="selector-label">Choose a team: </label>
+            <label id="selector-label">选择球队: </label>
             <div class="selector-container">
                 <select name="Team" id="team-selector" class="form-control">
+                    <option value="ALL" selected>所有球队</option>
                     <option value="ATL">Atlanta Hawks</option>
                     <option value="BOS">Boston Celtics</option>
                     <option value="BKN">Brooklyn Nets</option>
@@ -73,26 +74,26 @@
             </div>
         </div>
         <div class="item-intro">
-            <h2>Welcome to NBA Data!</h2>
+            <h2>NBA数据可视化</h2>
             <p>
-                Hundreds of players of 30 teams bring us exciting games in each NBA season. 
-                This website helps you to browse through the performance of each player in the last 5 seasons. 
-                Feel free to compare players’ performance using 6 different stats in the scatterplot. 
-                You can also check the team win-loss relation in the map below. Have fun!
+                在每个 NBA 2024-2025 常规赛中，30 支球队的数百名球员为我们带来激动人心的比赛。
+                本项目可帮助你浏览本个赛季中每位球员的表现。
+                可以在散点图中使用 6 种不同的数据统计来自由比较球员表现。
+                还可以查看下方的图表，了解球队的胜负关系。
                 <br>
         </div>
         <div class="item-notes">
-            <h2>Notes:</h2>
-            PPG: Points per game &nbsp&nbsp&nbsp RPG: Rebounds per game<br>
-            AST: Assists per game &nbsp&nbsp STL: Steals per game<br>
-            BLK: Blocks per game &nbsp&nbsp&nbsp TO: Turnovers per game<br>          
+            <h2>注释:</h2>
+            PPG: 场均得分 &nbsp&nbsp&nbsp RPG: 场均篮板<br>
+            AST: 场均助攻 &nbsp&nbsp STL: 场均抢断<br>
+            BLK: 场均盖帽 &nbsp&nbsp&nbsp TO: 场均失误<br>          
         </div>
 
         <div id="table-wrapper" class="item-table">
             <div id="clear"></div>
             <div id="search-bar-content">
                 <i class="fa fa-search icon"></i>
-                <input type="text" id="search-bar" placeholder="Search for player using id or name">
+                <input type="text" id="search-bar" placeholder="搜索球员（ID/姓名）">
             </div>
             <table id="table">
                 <thead>
@@ -194,12 +195,6 @@
                                     <div ng-if="availableStats.current" class="stats__category">
                                         <div class="stats-teamplayer-summary-text">STL</div>
                                         <div id="STL" class="stats-teamplayer-summary-text medium"> 1.2 </div>
-                                    </div>
-                                    <div class="ver-divider"></div>
-                                    <!---->
-                                    <div ng-if="availableStats.current" class="stats__category">
-                                        <div class="stats-teamplayer-summary-text">+/-</div>
-                                        <div id="plus_minus" class="stats-teamplayer-summary-text medium"> 16.9 </div>
                                     </div>
                                     <!---->
                                     <!---->
