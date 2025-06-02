@@ -132,78 +132,110 @@ class Scatterplot {
     }
 
     updatePlot(data, xIndicator, yIndicator, circleSizeIndicator) {
-        this.xIndicator = xIndicator;
-        this.yIndicator = yIndicator;
-        this.circleSizeIndicator = circleSizeIndicator;
-        this.data = data;
+    this.xIndicator = xIndicator;
+    this.yIndicator = yIndicator;
+    this.circleSizeIndicator = circleSizeIndicator;
+    this.data = data;
 
-        this.xScale = d3.scaleLinear()
-            .domain([0, d3.max(this.allData, d => d[xIndicator])])
-            .range([this.margin * 2, this.width])
+    // 更新比例尺域范围
+    this.xScale = d3.scaleLinear()
+        .domain([0, d3.max(this.allData, d => d[xIndicator])])
+        .range([this.margin * 2, this.width])
 
-        this.yScale = d3.scaleLinear()
-            .domain([0, d3.max(this.allData, d => d[yIndicator])])
-            .range([this.height, this.margin*2])
+    this.yScale = d3.scaleLinear()
+        .domain([0, d3.max(this.allData, d => d[yIndicator])])
+        .range([this.height, this.margin*2])
 
-        const circleMin = d3.min(this.allData, d => d[circleSizeIndicator]);
-        const circleMax = d3.max(this.allData, d => d[circleSizeIndicator]);
-        this.circleScale = d3.scaleLinear()
-            .domain([circleMin, circleMax])
-            .range([3, 15])
+    const circleMin = d3.min(this.allData, d => d[circleSizeIndicator]);
+    const circleMax = d3.max(this.allData, d => d[circleSizeIndicator]);
+    this.circleScale = d3.scaleLinear()
+        .domain([circleMin, circleMax])
+        .range([3, 15])
 
-        d3.select('#scatterplot')
-            .selectAll('circle')
-            .data(this.data)
-            .join("circle")
-            .attr("id", (d, i) => "circle-" + d.PLAYER_ID )
-            .attr("cx", d => this.xScale(d[xIndicator]))
-            .attr("cy", d => this.yScale(d[yIndicator]))
-            .attr("r", d => this.circleScale(d[circleSizeIndicator]))
-            .attr("class", (d, i) => `team-circle-color ${d.TEAM_ABBREVIATION}`)
-            .on("mouseup", (d, i) => {
-                this.updateSelected(d);
-                this.updateSelectedRow(d, true);
-  
-                this.updateInfocard(d);
-            })
-            .on("mouseover", function(d, i) {
-                d3.select(this)
-                    .classed("peek", true);
+    // 添加动画过渡 - 核心修改部分
+    let that = this;
+    
+    // 1. 更新圆点位置和大小（带过渡动画）
+    let circles = d3.select('#scatterplot')
+        .selectAll('circle')
+        .data(this.data, d => d.PLAYER_ID);  // 使用PLAYER_ID作为关键标识
 
-                let content = `<h2>${d.PLAYER_NAME} #${d.PLAYER_ID}</h2>`;
-                if(d.is_legendary) {
-                    content = `<h2>${String.fromCharCode(9733)}${d.PLAYER_NAME} #${d.PLAYER_ID}</h2>`
-                }
-                d3.select(".chart-tooltip")
-                    .style("left", `${d3.event.pageX}px`)
-                    .style("top", `${d3.event.pageY - 15}px`)
-                    .style("opacity", ".8")
-                    .html(content)
-            })
-            .on("mouseout", function(d) {
-                d3.select(this)
-                    .classed("peek", false);
-                d3.select(".chart-tooltip")
-                    .attr("transform", `translate(0, 0)`)
-                    .style("opacity", "0")
-            })
+    // 退出元素动画
+    circles.exit()
+        .transition()
+        .duration(800)
+        .attr("r", 0)
+        .attr("opacity", 0)
+        .remove();
 
-        let xLabel = this.indicators.filter(d => d.indicator === xIndicator)[0]
-        let xAxis = d3.select('#x-axis');
-        xAxis.call(d3.axisBottom(this.xScale).ticks(10));
-        xAxis.select('text')
-             .text(xLabel.label);
-       
-        let yLabel = this.indicators.filter(d => d.indicator === yIndicator)[0]
-        let yAxis = d3.select('#y-axis');
-        yAxis.call(d3.axisLeft(this.yScale).ticks(10));
-        yAxis.select('text')
-             .text(yLabel.label);
+    // 新元素进入动画
+    let circlesEnter = circles.enter()
+        .append("circle")
+        .attr("id", d => "circle-" + d.PLAYER_ID)
+        .attr("class", d => `team-circle-color ${d.TEAM_ABBREVIATION}`)
+        .attr("cx", that.width/2)  // 从中心开始动画
+        .attr("cy", that.height/2)
+        .attr("r", 0)
+        .attr("opacity", 0)
+        .on("mouseup", (d, i) => {
+            that.updateSelected(d);
+            that.updateSelectedRow(d, true);
+            that.updateInfocard(d);
+        })
+        .on("mouseover", function(d, i) {
+            d3.select(this).classed("peek", true);
+            let content = `<h2>${d.PLAYER_NAME} #${d.PLAYER_ID}</h2>`;
+            if(d.is_legendary) {
+                content = `<h2>${String.fromCharCode(9733)}${d.PLAYER_NAME} #${d.PLAYER_ID}</h2>`
+            }
+            d3.select(".chart-tooltip")
+                .style("left", `${d3.event.pageX}px`)
+                .style("top", `${d3.event.pageY - 15}px`)
+                .style("opacity", ".8")
+                .html(content)
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).classed("peek", false);
+            d3.select(".chart-tooltip").style("opacity", "0")
+        });
 
-        this.drawLegend(circleMin, circleMax);
-        this.drawDropdowns(xIndicator, yIndicator, circleSizeIndicator);
-    }
+    // 合并新元素和现有元素
+    circles = circlesEnter.merge(circles);
 
+    // 应用位置和大小变化动画
+    circles.transition()
+        .duration(1000)
+        .ease(d3.easeCubicOut)
+        .attr("cx", d => this.xScale(d[xIndicator]))
+        .attr("cy", d => this.yScale(d[yIndicator]))
+        .attr("r", d => this.circleScale(d[circleSizeIndicator]))
+        .attr("opacity", 0.8);
+
+    // 2. 坐标轴过渡动画
+    let xLabel = this.indicators.filter(d => d.indicator === xIndicator)[0];
+    let yLabel = this.indicators.filter(d => d.indicator === yIndicator)[0];
+    
+    // X轴动画
+    d3.select('#x-axis')
+        .transition()
+        .duration(1000)
+        .call(d3.axisBottom(this.xScale).ticks(10));
+    
+    d3.select('#x-axis').select('text')
+        .text(xLabel.label);
+
+    // Y轴动画
+    d3.select('#y-axis')
+        .transition()
+        .duration(1000)
+        .call(d3.axisLeft(this.yScale).ticks(10));
+    
+    d3.select('#y-axis').select('text')
+        .text(yLabel.label);
+
+    this.drawLegend(circleMin, circleMax);
+    this.drawDropdowns(xIndicator, yIndicator, circleSizeIndicator);
+}
     updateData(data) {
         this.updatePlot(data, this.xIndicator, this.yIndicator, this.circleSizeIndicator)
     }
